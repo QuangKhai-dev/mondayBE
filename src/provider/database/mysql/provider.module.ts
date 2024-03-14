@@ -2,6 +2,7 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { MySqlConfigModule } from 'src/config/database/mysql/config.module';
 import { MySqlConfigService } from 'src/config/database/mysql/config.service';
+import { UserEntity } from 'src/models/user/entities/user.entity';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { MySqlConfigService } from 'src/config/database/mysql/config.service';
         username: mysqlConfig.username,
         password: mysqlConfig.password,
         database: mysqlConfig.database,
-        entities: [],
+        entities: [UserEntity],
         synchronize: true,
       }),
       inject: [MySqlConfigService],
