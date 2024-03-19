@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadGatewayException, Injectable } from '@nestjs/common';
 import { UserDto } from './dto/user.dto';
 import { UserEntity } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -14,6 +14,16 @@ export class UserService {
   ) {}
   async create(dto: UserDto) {
     try {
+      // Kiểm tra email người dùng đã có trong hệ thống hay chưa
+      const checkExist = this.userEntity.findOne({
+        where: {
+          email: dto.email,
+        },
+      });
+      if (checkExist) {
+        throw new BadGatewayException('Email đã có trong hệ thống');
+      }
+
       // Mã hoá mật khẩu người dùng
       console.log(typeof this.configService.get('SALT'));
       const newPassword = await bycrypt.hash(
