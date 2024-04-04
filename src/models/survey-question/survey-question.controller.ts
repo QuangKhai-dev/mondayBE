@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { SurveyQuestionService } from './survey-question.service';
 import { SurveyQuestionDto } from './dto/survey-question.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -11,6 +11,11 @@ export class SurveyQuestionController {
   // create survey question
   @Post()
   createSurvey(@Body() dto: SurveyQuestionDto) {
-    return 'Tôi là phương thức tạo câu hỏi khảo sát';
+    return this.surveyQuestionService.createSurveyQuestion(dto);
+  }
+
+  @Get()
+  getAllSurveyQuestion() {
+    return this.surveyQuestionService.getAllSurveyQuestion();
   }
 }
