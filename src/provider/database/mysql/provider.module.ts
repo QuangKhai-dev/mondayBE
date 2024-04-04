@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { MySqlConfigModule } from 'src/config/database/mysql/config.module';
 import { MySqlConfigService } from 'src/config/database/mysql/config.service';
 import { UserEntity } from 'src/models/user/entities/user.entity';
+import { SurveyQuestionEntity } from 'src/models/survey-question/entity/survey-question.entity';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { UserEntity } from 'src/models/user/entities/user.entity';
         username: mysqlConfig.username,
         password: mysqlConfig.password,
         database: mysqlConfig.database,
-        entities: [UserEntity],
+        entities: [UserEntity, SurveyQuestionEntity],
         synchronize: true,
       }),
       inject: [MySqlConfigService],
